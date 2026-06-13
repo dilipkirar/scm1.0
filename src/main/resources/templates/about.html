@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>This is about page</h1>
+<hr/>
+<!--using fragment-->
+<div class="host-tag" th:replace="${isLogin} ? ~{base :: parent(~{::#main_content})} : ~{base :: test(~{::#not_logged_in})}">
+    <section id ="main_content">
+        <h1>User is Login</h1>
+        <h2>This is dynamic main content</h2>
+        <p>Windows me IntelliJ IDEA ke andar ek nayi file (ya class, package, file configuration) banane ke liye sabse best shortcut Alt + Insert ha</p>
+        <button>Click here</button>
+    </section>
+    <section id ="not_logged_in">
+        <h1>User is  not Login</h1>
+        <h2>This is dynamic main content</h2>
+    </section>
+</div>
+</body>
+</html>

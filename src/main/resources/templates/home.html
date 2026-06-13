@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Documents</title>
+    <link rel="stylesheet" data-th-href="@{'/css/output.css'}"/>
+    <link href="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.css" rel="stylesheet" />
+</head>
+<body>
+<div class="bg-gray-200 w-1/2 p-4 flex flex-col justify-center items-center space-y-3 mx-auto mt-4">
+    <h1 class="text-2xl font-bold" data-th-text="${name}">Welcome to home Page</h1>
+    <p class="text-xl text-gray-700">Youtube Channel :<span data-th-text="${YoutubeChannel}"></span></p>
+    <p>Github Repo Link :<span th:text="${githubRepo}"></span></p>
+    <a data-th-href="${githubRepo}">Click here to open</a>
+    <p class="text-gray-600">
+        Yeh error is wajah se aa rahi hai kyunki aap Hibernate 7 ya Hibernate 6 use kar rahe hain, jahan purana
+        org.hibernate.dialect.MySQL5Dialect puri tarah se remove (hataya) ja chuka ha
+    </p>
+    <div>
+        <button class="px-3 py-3 rounded bg-blue-700 text-white hover:bg-blue-600">Click Here</button>
+    </div>
+</div>
+
+<!--Add flowbite card-->
+<script src="https://cdn.jsdelivr.net/npm/flowbite@4.0.1/dist/flowbite.min.js"></script>
+</body>
+</html>

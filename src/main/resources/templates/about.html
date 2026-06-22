@@ -1,24 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" th:replace="~{base :: parent(~{::#content},~{:: title},~{::script})}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>About Page</title>
 </head>
 <body>
-<h1>This is about page</h1>
-<hr/>
-<!--using fragment-->
-<div class="host-tag" th:replace="${isLogin} ? ~{base :: parent(~{::#main_content})} : ~{base :: test(~{::#not_logged_in})}">
-    <section id ="main_content">
-        <h1>User is Login</h1>
-        <h2>This is dynamic main content</h2>
-        <p>Windows me IntelliJ IDEA ke andar ek nayi file (ya class, package, file configuration) banane ke liye sabse best shortcut Alt + Insert ha</p>
-        <button>Click here</button>
-    </section>
-    <section id ="not_logged_in">
-        <h1>User is  not Login</h1>
-        <h2>This is dynamic main content</h2>
-    </section>
+<div id="content">
+    <h1>Welcome to about page</h1>
+
+    <p>
+        Our first task will be to create a home page for our grocery site.
+    </p>
 </div>
+<script>
+    console.log("about page");
+</script>
 </body>
 </html>

@@ -1,24 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" th:replace="~{base :: parent(~{::#content},~{::title},~{::script})}">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Service Page</title>
 </head>
 <body>
-<h1>This is Services page</h1>
-<hr/>
-<!--using fragment-->
-<div class="host-tag" th:replace="~{base :: parent(~{::section})}">
-    <section id ="main_content">
-        <h1>User is Login</h1>
-        <h2>This is dynamic main content</h2>
-    </section>
-    <section id ="second_content">
-        <h2>This is dynamic second content</h2>
-    </section>
-    <section class ="third_content">
-        <h2>This is dynamic third content</h2>
-    </section>
-</div>
+   <section id="content">
+       <h1>
+           Welcome to services page
+       </h1>
+       <p>
+           The first version of this page will be extremely simple: just a title and a welcome message.
+       </p>
+   </section>
+   <script>
+       console.log("Service page");
+   </script>
+   <script>
+       console.log("Second Service page");
+   </script>
 </body>
 </html>

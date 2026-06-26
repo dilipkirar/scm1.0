@@ -1,15 +1,32 @@
 package com.scm.controller;
 
+import com.scm.entities.User;
 import com.scm.forms.UserFrom;
+import com.scm.helpers.Message;
+import com.scm.helpers.MessageType;
+import com.scm.services.UserService;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class PageController {
+
+    @Autowired
+    private UserService userService;
+
+    @GetMapping("/")
+    public String index(){
+        return "redirect:/home";
+    }
+
     @RequestMapping("/home")
     public String home(Model model) {
         System.out.println("Home page handler");
@@ -40,7 +57,7 @@ public class PageController {
     @RequestMapping("/contact")
     public String contact() {
         System.out.println("contact page Loading");
-        return "contact";
+        return new String("contact");
     }
 
     @RequestMapping("/login")
@@ -54,23 +71,48 @@ public class PageController {
         System.out.println("register page Loading");
         UserFrom userFrom = new UserFrom();
         //default data bhi daal sakte hai
-       // userFrom.setName("Dilip");
+        // userFrom.setName("Dilip");
         model.addAttribute("userFrom", userFrom);
         return "register";
     }
 
     //processing register
     @RequestMapping(value = "/do-register", method = RequestMethod.POST)
-    public String processRegister(@ModelAttribute UserFrom userFrom) {
+    public String processRegister(@Valid @ModelAttribute UserFrom userFrom, BindingResult rBindingResult, HttpSession session) {
         System.out.println("processing register");
         //fetch from data
         //UserForm
-        System.out.println(userFrom.getName());
-        System.out.println(userFrom.getEmail());
-        System.out.println(userFrom.getPhoneNumber());
+
         //validate from data
+        if (rBindingResult.hasErrors()) {
+            return "register";
+        }
         //save to database
+        //userForm --> User
+      /*  User user = User.builder()
+                .name(userFrom.getName())
+                .email(userFrom.getEmail())
+                .password(userFrom.getPassword())
+                .phoneNumber(userFrom.getPhoneNumber())
+                .about(userFrom.getAbout())
+                .profilePic("Passing Pic URL")
+                .build();*/
+        User user = new User();
+        user.setName(userFrom.getName());
+        user.setEmail(userFrom.getEmail());
+        user.setPassword(userFrom.getPassword());
+        user.setPhoneNumber(userFrom.getPhoneNumber());
+        user.setAbout(userFrom.getAbout());
+        user.setProfilePic("Passing Pic URL");
+
+        userService.saveUser(user);
+
+        System.out.println("user Saved :");
         //message = "Registration successful"
+
+        //add the message
+        Message message = Message.builder().content("Registration Successful").type(MessageType.green).build();
+        session.setAttribute("message", message);
         //redirect to login page
         return "redirect:/register";
     }
